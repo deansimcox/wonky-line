@@ -44,29 +44,30 @@ const drawToLeft = keyframes`
 `;
 
 interface StyledPathProps {
-  animate?: AnimateProps;
+	animate?: AnimateProps;
 }
 export const StyledPath = styled("path", {
-  shouldForwardProp: (prop) => !["animate"].includes(String(prop)),
+	shouldForwardProp: (prop) => !["animate"].includes(String(prop)),
 })<StyledPathProps>(({ theme, animate }) => {
-  const animationStyles = `${animate?.duration ?? 1400}ms ${
-    animate?.timingFunction ?? "cubic-bezier(0.4, 0, 0.2, 1)"
-  } ${animate?.delay ?? 1000}ms forwards;`;
+	const animationStyles = `${animate?.duration ?? 1400}ms ${
+		animate?.timingFunction ?? "cubic-bezier(0.4, 0, 0.2, 1)"
+	} ${animate?.delay ?? 1000}ms forwards;`;
 
-  if (animate?.direction === "toRight") {
-    return css`
+	if (animate?.direction === "toRight") {
+		return css`
       opacity: 0;
       stroke-dasharray: 1;
       // This moves the initial part of the line to the right side
       stroke-dashoffset: 0.999;
       animation: ${drawToRight} ${animationStyles};
     `;
-  } else if (animate?.direction === "toLeft") {
-    return css`
+	}
+	if (animate?.direction === "toLeft") {
+		return css`
       opacity: 0;
       stroke-dasharray: 1;
       stroke-dashoffset: 1;
       animation: ${drawToLeft} ${animationStyles};
     `;
-  }
+	}
 });
