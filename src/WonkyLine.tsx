@@ -6,7 +6,7 @@ import {
   StyledSvg,
   StyledText,
 } from "./WonkyLine.styled.js";
-import type { GeneratedLine, WonkyLineProps } from "./WWonkyLine.types.js";
+import type { GeneratedLine, WonkyLineProps } from "./WonkyLine.types.js";
 import { randomNumberBetween } from "./utils/randomNumberBetween.js";
 
 /**
