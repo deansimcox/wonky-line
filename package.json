@@ -1,0 +1,25 @@
+{
+  "name": "wonky-line",
+  "version": "1.0.0",
+  "description": "For when you want a line, but you know, a bit wonky",
+  "keywords": [
+    "wonky",
+    "line",
+    "svg",
+    "react"
+  ],
+  "homepage": "https://github.com/deansimcox/wonky-line",
+  "bugs": {
+    "url": "https://github.com/deansimcox/wonky-line/issues"
+  },
+  "author": "Dean Simcox",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deansimcox/wonky-line.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "license": "MIT"
+}
