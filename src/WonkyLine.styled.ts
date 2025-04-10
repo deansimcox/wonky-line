@@ -1,7 +1,7 @@
 import { css, keyframes } from "@emotion/css";
 import styled from "@emotion/styled";
 
-import type { AnimateProps } from "./TextUnderline.types.js";
+import type { AnimateProps } from "./WWonkyLine.types.js";
 
 export const StyledContainer = styled("span")`
   position: relative;

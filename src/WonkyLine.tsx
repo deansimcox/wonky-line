@@ -5,11 +5,8 @@ import {
   StyledPath,
   StyledSvg,
   StyledText,
-} from "./TextUnderline.styled.js";
-import type {
-  GeneratedLine,
-  TextUnderlineProps,
-} from "./TextUnderline.types.js";
+} from "./WonkyLine.styled.js";
+import type { GeneratedLine, WonkyLineProps } from "./WWonkyLine.types.js";
 import { randomNumberBetween } from "./utils/randomNumberBetween.js";
 
 /**
@@ -88,7 +85,7 @@ const bezierCommand = (
   return `C ${controlPointStart?.[0]},${controlPointStart?.[1]} ${controlPointEnd?.[0]},${controlPointEnd?.[1]} ${point?.[0]},${point?.[1]}`;
 };
 
-const TextUnderline: React.FC<TextUnderlineProps> = ({
+const WonkyLine: React.FC<WonkyLineProps> = ({
   stroke = "currentColor",
   strokeWidth = 4,
   variance = 6,
@@ -179,4 +176,4 @@ const TextUnderline: React.FC<TextUnderlineProps> = ({
   );
 };
 
-export default TextUnderline;
+export default WonkyLine;

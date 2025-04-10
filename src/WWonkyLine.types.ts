@@ -1,4 +1,4 @@
-export interface TextUnderlineProps {
+export interface WonkyLineProps {
   /**
    * The stroke colour of the underline.
    * @default 'currentColor'
@@ -33,7 +33,7 @@ export interface TextUnderlineProps {
 }
 
 export interface AnimateProps {
-  direction?: 'toRight' | 'toLeft';
+  direction?: "toRight" | "toLeft";
   duration?: number;
   delay?: number;
   timingFunction?: string;
