@@ -25,16 +25,19 @@
 	"main": "./dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"ci": "npm run build && npm run check-format && npm run check-exports",
+		"ci": "npm run build && npm run check-format && npm run check-exports && npm run test",
 		"format": "biome check --write",
 		"format-check": "biome check --write",
-		"check-exports": "attw --pack ."
+		"check-exports": "attw --pack .",
+		"test": "vitest run",
+		"test:watch": "vitest watch"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.17.4",
 		"@biomejs/biome": "1.9.4",
 		"@types/react": "^19.1.0",
-		"typescript": "^5.8.3"
+		"typescript": "^5.8.3",
+		"vitest": "^3.1.1"
 	},
 	"dependencies": {
 		"@emotion/css": "^11.13.5",
