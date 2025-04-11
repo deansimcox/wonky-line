@@ -1,5 +1,11 @@
 # wonky-line
 
+## 0.0.2
+
+### Patch Changes
+
+- 885ec35: not support react 19 for now
+
 ## 0.0.1
 
 ### Patch Changes
