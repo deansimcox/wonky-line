@@ -32,7 +32,8 @@
 		"test": "vitest run",
 		"test:watch": "vitest watch",
 		"local-release": "changeset version && changeset publish",
-		"prepublishOnly": "npm run ci"
+		"prepublishOnly": "npm run ci",
+		"ladle:build": "ladle build"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.17.4",
