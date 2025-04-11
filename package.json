@@ -1,8 +1,14 @@
 {
+	"license": "MIT",
 	"name": "wonky-line",
 	"version": "1.0.0",
 	"description": "For when you want a line, but you know, a bit wonky",
-	"keywords": ["wonky", "line", "svg", "react"],
+	"keywords": [
+		"wonky",
+		"line",
+		"svg",
+		"react"
+	],
 	"homepage": "https://github.com/deansimcox/wonky-line",
 	"bugs": {
 		"url": "https://github.com/deansimcox/wonky-line/issues"
@@ -12,15 +18,20 @@
 		"type": "git",
 		"url": "git+https://github.com/deansimcox/wonky-line.git"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"type": "module",
-	"license": "MIT",
+	"main": "./dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"ci": "npm run build",
-		"format": "biome check --write"
+		"ci": "npm run build && npm run check-format && npm run check-exports",
+		"format": "biome check --write",
+		"format-check": "biome check --write",
+		"check-exports": "attw --pack ."
 	},
 	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.17.4",
 		"@biomejs/biome": "1.9.4",
 		"@types/react": "^19.1.0",
 		"typescript": "^5.8.3"
