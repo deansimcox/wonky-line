@@ -38,6 +38,7 @@
 		"@arethetypeswrong/cli": "^0.17.4",
 		"@biomejs/biome": "1.9.4",
 		"@changesets/cli": "^2.28.1",
+		"@ladle/react": "^5.0.2",
 		"@types/react": "^17 || ^18",
 		"typescript": "^5.8.3",
 		"vitest": "^3.1.1"
