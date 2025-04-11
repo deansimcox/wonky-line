@@ -33,8 +33,13 @@ jobs:
       - name: Build Ladle
         run: npm run ladle:build
 
+      - name: Create .nojekyll file
+        run: touch build/.nojekyll
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enable-jekyll: false
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
