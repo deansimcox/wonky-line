@@ -1,5 +1,11 @@
 # wonky-line
 
+## 0.0.1
+
+### Patch Changes
+
+- c48c82f: made react dependency less strict
+
 ## 0.0.3
 
 ### Patch Changes
