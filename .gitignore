@@ -1,2 +1,7 @@
 node_modules
+
+# The actual build folder
 dist
+
+# The build result from ladle
+build
