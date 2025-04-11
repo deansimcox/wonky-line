@@ -1,4 +1,4 @@
-export interface WonkyLineProps {
+export interface WonkyLineOptions {
   /**
    * The stroke colour of the underline.
    * @default 'currentColor'
@@ -29,6 +29,9 @@ export interface WonkyLineProps {
    * @default {}
    */
   animate?: AnimateProps;
+}
+
+export interface WonkyLineProps extends WonkyLineOptions {
   children?: React.ReactNode;
 }
 
@@ -44,3 +47,5 @@ export interface GeneratedLine {
   width: number;
   path: string;
 }
+
+export type PointsArray = [number, number];
