@@ -14,14 +14,14 @@ import type { PointsArray } from "../WonkyLine/WonkyLine.types.js";
  *   - angle: The angle in radians between the line and the positive x-axis
  */
 export const getLengthAndAngleFromPoints = (
-  previousPoints: PointsArray,
-  nextPoints: PointsArray
+	previousPoints: PointsArray,
+	nextPoints: PointsArray,
 ) => {
-  const lengthX = nextPoints[0] - previousPoints[0];
-  const lengthY = nextPoints[1] - previousPoints[1];
+	const lengthX = nextPoints[0] - previousPoints[0];
+	const lengthY = nextPoints[1] - previousPoints[1];
 
-  return {
-    length: Math.sqrt(lengthX ** 2 + lengthY ** 2),
-    angle: Math.atan2(lengthY, lengthX),
-  };
+	return {
+		length: Math.sqrt(lengthX ** 2 + lengthY ** 2),
+		angle: Math.atan2(lengthY, lengthX),
+	};
 };
