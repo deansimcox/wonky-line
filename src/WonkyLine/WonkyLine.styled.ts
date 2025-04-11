@@ -1,4 +1,4 @@
-import { css, keyframes } from "@emotion/css";
+import { keyframes } from "@emotion/css";
 import styled from "@emotion/styled";
 
 import type { AnimateProps } from "./WonkyLine.types.js";
@@ -45,30 +45,29 @@ const drawToLeft = keyframes`
 `;
 
 interface StyledPathProps {
-	animate?: AnimateProps;
+  animate?: AnimateProps;
 }
-export const StyledPath = styled("path", {
-	shouldForwardProp: (prop) => !["animate"].includes(String(prop)),
-})<StyledPathProps>(({ theme, animate }) => {
-	const animationStyles = `${animate?.duration ?? 1400}ms ${
-		animate?.timingFunction ?? "cubic-bezier(0.4, 0, 0.2, 1)"
-	} ${animate?.delay ?? 1000}ms forwards;`;
+export const StyledPath = styled("path")<StyledPathProps>(({ animate }) => {
+  const animationStyles = `${animate?.duration ?? 1400}ms ${
+    animate?.timingFunction ?? "cubic-bezier(0.4, 0, 0.2, 1)"
+  } ${animate?.delay ?? 1000}ms forwards;`;
 
-	if (animate?.direction === "toRight") {
-		return css`
-      opacity: 0;
-      stroke-dasharray: 1;
+  if (animate?.direction === "toRight") {
+    return {
+      opacity: 0,
+      strokeDasharray: 1,
       // This moves the initial part of the line to the right side
-      stroke-dashoffset: 0.999;
-      animation: ${drawToRight} ${animationStyles};
-    `;
-	}
-	if (animate?.direction === "toLeft") {
-		return css`
-      opacity: 0;
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      animation: ${drawToLeft} ${animationStyles};
-    `;
-	}
+      strokeDashoffset: 0.999,
+      animation: `${drawToRight} ${animationStyles}`,
+    };
+  }
+
+  if (animate?.direction === "toLeft") {
+    return {
+      opacity: 0,
+      strokeDasharray: 1,
+      strokeDashoffset: 1,
+      animation: `${drawToLeft} ${animationStyles}`,
+    };
+  }
 });

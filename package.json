@@ -33,6 +33,7 @@
 		"test:watch": "vitest watch",
 		"local-release": "changeset version && changeset publish",
 		"prepublishOnly": "npm run ci",
+		"ladle:serve": "ladle serve",
 		"ladle:build": "ladle build"
 	},
 	"devDependencies": {
