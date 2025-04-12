@@ -43,6 +43,8 @@ export const WonkyLine = ({
             currentLineHeight = rect.height;
           }
 
+          const extraHeightToPushLineDown = currentLineHeight * 0.75;
+
           const path = generateWonkyLine({
             height: rect.height,
             width: rect.width,
@@ -58,7 +60,7 @@ export const WonkyLine = ({
             height: rect.height,
             width: rect.width,
             path,
-            top: currentLineTop + currentLineHeight,
+            top: currentLineTop + extraHeightToPushLineDown,
             left: rect.left - textBox.left,
           });
         }
