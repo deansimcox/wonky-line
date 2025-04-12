@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Build Ladle
-        run: npm run ladle:build
+        run: npm run build:ladle
 
       - name: Create .nojekyll file
         run: touch build/.nojekyll
