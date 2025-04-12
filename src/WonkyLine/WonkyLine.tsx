@@ -2,13 +2,9 @@ import React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { generateWonkyLine } from "../utils/generateWonkyLine.js";
-import {
-  StyledContainer,
-  StyledPath,
-  StyledSvg,
-  StyledText,
-} from "./WonkyLine.styled.js";
+import { StyledPath } from "./WonkyLine.styled.js";
 import type { GeneratedLine, WonkyLineProps } from "./WonkyLine.types.js";
+import { css } from "@emotion/css";
 
 export const WonkyLine = ({
   stroke = "currentColor",
@@ -56,15 +52,34 @@ export const WonkyLine = ({
   }, [generateLine, generatedLine]);
 
   return (
-    <StyledContainer>
-      <StyledText ref={textRef}>{children}</StyledText>
+    <span
+      className={css`
+        position: relative;
+      `}
+    >
+      <span
+        className={css`
+          position: relative;
+          z-index: 2;
+        `}
+        ref={textRef}
+      >
+        {children}
+      </span>
       {!!generatedLine && (
-        <StyledSvg
+        <svg
           fill="none"
           viewBox={`0, 0, ${generatedLine.width}, ${generatedLine.height}`}
-          xmlns="http://www.w3.org/2000/svg"
           focusable={false}
-          className="underline"
+          className={css`
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            top: 90%;
+            left: 0;
+            right: 0;
+            height: 100%;
+          `}
           role="presentation"
         >
           <StyledPath
@@ -75,8 +90,8 @@ export const WonkyLine = ({
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
-        </StyledSvg>
+        </svg>
       )}
-    </StyledContainer>
+    </span>
   );
 };

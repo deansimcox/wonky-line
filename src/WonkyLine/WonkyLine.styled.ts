@@ -3,25 +3,6 @@ import styled from "@emotion/styled";
 
 import type { AnimateProps } from "./WonkyLine.types.js";
 
-export const StyledContainer = styled("span")`
-  position: relative;
-`;
-
-export const StyledText = styled("span")`
-  position: relative;
-  z-index: 2;
-`;
-
-export const StyledSvg = styled("svg")`
-  position: absolute;
-  pointer-events: none;
-  z-index: 1;
-  top: 90%;
-  left: 0;
-  right: 0;
-  height: 100%;
-`;
-
 const drawToRight = keyframes`
   from {
     opacity: 1;
@@ -48,11 +29,18 @@ interface StyledPathProps {
   animate?: AnimateProps;
 }
 export const StyledPath = styled("path")<StyledPathProps>(({ animate }) => {
-  const animationStyles = `${animate?.duration ?? 1400}ms ${
-    animate?.timingFunction ?? "cubic-bezier(0.4, 0, 0.2, 1)"
-  } ${animate?.delay ?? 1000}ms forwards;`;
+  const {
+    duration = 1400,
+    timingFunction = "cubic-bezier(0.4, 0, 0.2, 1)",
+    delay = 1000,
+    direction = undefined,
+  } = animate ?? {};
 
-  if (animate?.direction === "toRight") {
+  const animationStyles = `${duration ?? 1400}ms ${
+    timingFunction ?? "cubic-bezier(0.4, 0, 0.2, 1)"
+  } ${delay ?? 1000}ms forwards;`;
+
+  if (direction === "toRight") {
     return {
       opacity: 0,
       strokeDasharray: 1,
@@ -62,7 +50,7 @@ export const StyledPath = styled("path")<StyledPathProps>(({ animate }) => {
     };
   }
 
-  if (animate?.direction === "toLeft") {
+  if (direction === "toLeft") {
     return {
       opacity: 0,
       strokeDasharray: 1,
