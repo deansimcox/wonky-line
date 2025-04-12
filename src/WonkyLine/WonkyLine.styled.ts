@@ -36,9 +36,7 @@ export const StyledPath = styled("path")<StyledPathProps>(({ animate }) => {
     direction = undefined,
   } = animate ?? {};
 
-  const animationStyles = `${duration ?? 1400}ms ${
-    timingFunction ?? "cubic-bezier(0.4, 0, 0.2, 1)"
-  } ${delay ?? 1000}ms forwards;`;
+  const animationStyles = `${duration}ms ${timingFunction} ${delay}ms forwards;`;
 
   if (direction === "toRight") {
     return {

@@ -4,6 +4,18 @@ import { WonkyLine as WonkyLineComponent } from "./WonkyLine.js";
 import type { WonkyLineProps } from "./WonkyLine.types.js";
 import { css } from "@emotion/css";
 
+const WrapperDecorator = (Component: typeof WonkyLineComponent) => (
+  <div
+    className={css`
+      display: grid;
+      place-content: center;
+      height: 100%;
+    `}
+  >
+    <Component />
+  </div>
+);
+
 export const Headline: Story<WonkyLineProps> = (props) => (
   <h1
     className={css`
@@ -35,19 +47,7 @@ Headline.argTypes = {
   },
 };
 
-Headline.decorators = [
-  (Component: typeof WonkyLineComponent) => (
-    <div
-      className={css`
-        display: grid;
-        place-content: center;
-        height: 100%;
-      `}
-    >
-      <Component />
-    </div>
-  ),
-];
+Headline.decorators = [WrapperDecorator];
 
 export const MultiLine: Story<WonkyLineProps> = (props) => (
   <p
@@ -68,13 +68,11 @@ export const MultiLine: Story<WonkyLineProps> = (props) => (
 
 MultiLine.args = {
   stroke: "mediumspringgreen",
-  strokeWidth: 8,
+  strokeWidth: 4,
   wonkyness: 10,
-  stepInterval: 40,
+  stepInterval: 20,
   smoothing: 0.2,
-  animate: {
-    direction: "toRight",
-  },
+  animate: {},
 };
 
 MultiLine.argTypes = {
@@ -85,16 +83,4 @@ MultiLine.argTypes = {
   },
 };
 
-MultiLine.decorators = [
-  (Component: typeof WonkyLineComponent) => (
-    <div
-      className={css`
-        display: grid;
-        place-content: center;
-        height: 100%;
-      `}
-    >
-      <Component />
-    </div>
-  ),
-];
+MultiLine.decorators = [WrapperDecorator];
