@@ -16,40 +16,64 @@ export const WonkyLine = ({
   children,
 }: WonkyLineProps) => {
   const textRef = useRef<HTMLSpanElement>(null);
-  const [generatedLine, setGeneratedLine] = useState<GeneratedLine | null>(
-    null
-  );
+  const [generatedLines, setGeneratedLines] = useState<GeneratedLine[]>([]);
 
-  const generateLine = useCallback(
+  const generateLines = useCallback(
     (textBox: DOMRect) => {
-      const height = textBox?.height ?? 0;
-      const width = textBox?.width ?? 0;
+      if (!textRef.current) return;
 
-      const path = generateWonkyLine({
-        height,
-        width,
-        stroke,
-        strokeWidth,
-        wonkyness,
-        stepInterval,
-        smoothing,
-        animate,
-      });
+      // Get all text nodes and their positions
+      const textNodes = Array.from(textRef.current.childNodes).filter(
+        (node) => node.nodeType === Node.TEXT_NODE
+      );
 
-      setGeneratedLine({
-        height,
-        width,
-        path,
-      });
+      const lines: GeneratedLine[] = [];
+      let currentLineTop = 0;
+      let currentLineHeight = 0;
+
+      for (const node of textNodes) {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const rects = range.getClientRects();
+
+        for (const rect of Array.from(rects)) {
+          // If this rect is on a new line
+          if (rect.top > currentLineTop + currentLineHeight) {
+            currentLineTop = rect.top - textBox.top;
+            currentLineHeight = rect.height;
+          }
+
+          const path = generateWonkyLine({
+            height: rect.height,
+            width: rect.width,
+            stroke,
+            strokeWidth,
+            wonkyness,
+            stepInterval,
+            smoothing,
+            animate,
+          });
+
+          lines.push({
+            height: rect.height,
+            width: rect.width,
+            path,
+            top: currentLineTop + currentLineHeight,
+            left: rect.left - textBox.left,
+          });
+        }
+      }
+
+      setGeneratedLines(lines);
     },
     [animate, stepInterval, wonkyness, strokeWidth, smoothing, stroke]
   );
 
   useEffect(() => {
-    if (textRef.current && !generatedLine) {
-      generateLine(textRef.current.getBoundingClientRect());
+    if (textRef.current && generatedLines.length === 0) {
+      generateLines(textRef.current.getBoundingClientRect());
     }
-  }, [generateLine, generatedLine]);
+  }, [generateLines, generatedLines]);
 
   return (
     <span
@@ -66,32 +90,32 @@ export const WonkyLine = ({
       >
         {children}
       </span>
-      {!!generatedLine && (
+      {generatedLines.map((line, index) => (
         <svg
+          key={`${line.top}-${line.left}-${index}`}
           fill="none"
-          viewBox={`0, 0, ${generatedLine.width}, ${generatedLine.height}`}
+          viewBox={`0, 0, ${line.width}, ${line.height}`}
           focusable={false}
           className={css`
             position: absolute;
             pointer-events: none;
             z-index: 1;
-            top: 90%;
-            left: 0;
-            right: 0;
-            height: 100%;
+            top: ${line.top}px;
+            left: ${line.left}px;
+            height: ${line.height}px;
           `}
           role="presentation"
         >
           <StyledPath
             animate={animate}
             pathLength={1}
-            d={generatedLine.path}
+            d={line.path}
             stroke={stroke}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
         </svg>
-      )}
+      ))}
     </span>
   );
 };
