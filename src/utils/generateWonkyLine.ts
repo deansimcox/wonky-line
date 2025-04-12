@@ -1,13 +1,10 @@
-import type {
-	PointsArray,
-	WonkyLineOptions,
-} from "../WonkyLine/WonkyLine.types.js";
-import { drawBezierCurveFromPoints } from "./drawBezierCurveFromPoints.js";
-import { getRandomNumberBetween } from "./getRandomNumberBetween.js";
+import type {PointsArray, WonkyLineOptions} from '../WonkyLine/WonkyLine.types.js'
+import {drawBezierCurveFromPoints} from './drawBezierCurveFromPoints.js'
+import {getRandomNumberBetween} from './getRandomNumberBetween.js'
 
 export interface GenerateWonkyLineParams extends Required<WonkyLineOptions> {
-	height: number;
-	width: number;
+	height: number
+	width: number
 }
 
 /**
@@ -25,18 +22,18 @@ export interface GenerateWonkyLineParams extends Required<WonkyLineOptions> {
  * @returns SVG path string representing the wonky line
  */
 export const generateWonkyLine = (params: GenerateWonkyLineParams) => {
-	const minY = params.strokeWidth;
-	const maxY = params.strokeWidth + params.wonkyness;
+	const minY = params.strokeWidth
+	const maxY = params.strokeWidth + params.wonkyness
 
-	const minX = params.strokeWidth;
-	const maxX = params.width - params.strokeWidth;
+	const minX = params.strokeWidth
+	const maxX = params.width - params.strokeWidth
 
-	const randomY = () => getRandomNumberBetween(minY, maxY);
+	const randomY = () => getRandomNumberBetween(minY, maxY)
 
 	// The amount of points needed between the start and end points
-	let midPointsAmount = Math.floor(params.width / params.stepInterval) - 2; // '2' represents the minX and maxX (start and end) points
+	let midPointsAmount = Math.floor(params.width / params.stepInterval) - 2 // '2' represents the minX and maxX (start and end) points
 	if (midPointsAmount < 1) {
-		midPointsAmount = 1;
+		midPointsAmount = 1
 	}
 
 	// The generated points of a line to draw
@@ -44,25 +41,17 @@ export const generateWonkyLine = (params: GenerateWonkyLineParams) => {
 		[minX, randomY()],
 		...new Array(midPointsAmount)
 			.fill(0)
-			.map(
-				(_point, index) =>
-					[params.stepInterval * (index + 1), randomY()] as PointsArray,
-			),
+			.map((_point, index) => [params.stepInterval * (index + 1), randomY()] as PointsArray),
 		[maxX, randomY()],
-	];
+	]
 
 	const path = points?.reduce(
 		(acc, point, index, array) =>
 			index === 0
 				? `M ${point[0]},${point[1]}`
-				: `${acc} ${drawBezierCurveFromPoints(
-						point,
-						index,
-						array,
-						params.smoothing,
-					)}`,
-		"",
-	);
+				: `${acc} ${drawBezierCurveFromPoints(point, index, array, params.smoothing)}`,
+		'',
+	)
 
-	return path;
-};
+	return path
+}

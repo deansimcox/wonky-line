@@ -1,5 +1,5 @@
-import type { PointsArray } from "../WonkyLine/WonkyLine.types.js";
-import { getControlPoint } from "./getControlPoint.js";
+import type {PointsArray} from '../WonkyLine/WonkyLine.types.js'
+import {getControlPoint} from './getControlPoint.js'
 
 /**
  * Generates an SVG path command for drawing a smooth Bezier curve segment.
@@ -16,24 +16,12 @@ export const drawBezierCurveFromPoints = (
 	allPoints: PointsArray[],
 	smoothing: number,
 ) => {
-	const getPoint = (arrayIndex: number) => allPoints[arrayIndex] ?? [0, 0];
+	const getPoint = (arrayIndex: number) => allPoints[arrayIndex] ?? [0, 0]
 
 	// start control point
-	const controlPointStart = getControlPoint(
-		getPoint(index - 1),
-		getPoint(index - 2),
-		point,
-		smoothing,
-		false,
-	);
+	const controlPointStart = getControlPoint(getPoint(index - 1), getPoint(index - 2), point, smoothing, false)
 
 	// end control point
-	const controlPointEnd = getControlPoint(
-		point,
-		getPoint(index - 1),
-		getPoint(index + 1),
-		smoothing,
-		true,
-	);
-	return `C ${controlPointStart?.[0]},${controlPointStart?.[1]} ${controlPointEnd?.[0]},${controlPointEnd?.[1]} ${point?.[0]},${point?.[1]}`;
-};
+	const controlPointEnd = getControlPoint(point, getPoint(index - 1), getPoint(index + 1), smoothing, true)
+	return `C ${controlPointStart?.[0]},${controlPointStart?.[1]} ${controlPointEnd?.[0]},${controlPointEnd?.[1]} ${point?.[0]},${point?.[1]}`
+}
