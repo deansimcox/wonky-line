@@ -15,8 +15,10 @@ export const WonkyLine = ({
   animate = {},
   children,
 }: WonkyLineProps) => {
+  const containerRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [generatedLines, setGeneratedLines] = useState<GeneratedLine[]>([]);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
 
   const generateLines = useCallback(
     (textBox: DOMRect) => {
@@ -72,15 +74,44 @@ export const WonkyLine = ({
   );
 
   useEffect(() => {
-    if (textRef.current && generatedLines.length === 0) {
-      generateLines(textRef.current.getBoundingClientRect());
-    }
-  }, [generateLines, generatedLines]);
+    if (!textRef.current || !containerRef.current) return;
+
+    // Create a new ResizeObserver
+    resizeObserverRef.current = new ResizeObserver((entries) => {
+      console.log({ entries });
+      for (const entry of entries) {
+        if (
+          entry.target === textRef.current ||
+          entry.target === containerRef.current
+        ) {
+          if (textRef.current) {
+            generateLines(textRef.current.getBoundingClientRect());
+          }
+        }
+      }
+    });
+
+    // Start observing both the container and text elements
+    resizeObserverRef.current.observe(containerRef.current);
+    resizeObserverRef.current.observe(textRef.current);
+
+    // Initial generation
+    generateLines(textRef.current.getBoundingClientRect());
+
+    // Cleanup
+    return () => {
+      if (resizeObserverRef.current) {
+        resizeObserverRef.current.disconnect();
+      }
+    };
+  }, [generateLines]);
 
   return (
     <span
+      ref={containerRef}
       className={css`
         position: relative;
+        display: inline-block;
       `}
     >
       <span
