@@ -14,10 +14,22 @@ export const useWonkyLine = ({
   const textRef = useRef<HTMLSpanElement>(null);
   const [generatedLines, setGeneratedLines] = useState<GeneratedLine[]>([]);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const lastCacheKeyRef = useRef<string>("");
 
   const generateLines = useCallback(
     (textBox: DOMRect) => {
       if (!textRef.current) return;
+
+      // Create a cache key based on text content and width
+      const textContent = textRef.current.textContent || "";
+      const cacheKey = `${textContent}-${textBox.width}`;
+
+      // If the cache key hasn't changed, don't regenerate lines
+      if (cacheKey === lastCacheKeyRef.current) {
+        return;
+      }
+
+      lastCacheKeyRef.current = cacheKey;
 
       // Get all text nodes and their positions
       const textNodes = Array.from(textRef.current.childNodes).filter(
