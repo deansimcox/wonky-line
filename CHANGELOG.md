@@ -1,5 +1,11 @@
 # wonky-line
 
+## 0.0.4
+
+### Patch Changes
+
+- e662ecc: new multi line functionality with resize support
+
 ## 0.0.3
 
 ### Patch Changes
